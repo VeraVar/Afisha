@@ -1,12 +1,23 @@
 package ru.netology.manager;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Movie;
+import ru.netology.repository.AfishaRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
+@ExtendWith(MockitoExtension.class)
 public class AfishaManagerTest {
-  AfishaManager manager = new AfishaManager();
+  @Mock
+  private AfishaRepository repository;
+  @InjectMocks
+  private AfishaManager manager;
   private Movie first = new Movie(1, 1, "movie1", "genre1", "image1");
   private Movie second = new Movie(2, 2, "movie2", "genre2", "image2");
   private Movie third = new Movie(3, 3, "movie3", "genre3", "image3");
@@ -20,7 +31,6 @@ public class AfishaManagerTest {
 
   @Test
   public void shouldAddAllMovies() {
-  manager = new AfishaManager(10);
     manager.add(first);
     manager.add(second);
     manager.add(third);
@@ -31,27 +41,34 @@ public class AfishaManagerTest {
     manager.add(eight);
     manager.add(ninth);
     manager.add(tenth);
-  Movie[] actual = manager.showLast();
-  Movie[] expected = new Movie[]{tenth, ninth, eight, seventh, sixth, fifth, fourth, third, second, first};
+    Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eight, ninth, tenth};
+    doReturn(returned).when(repository).findAll();
+
+    Movie[] actual = manager.showLast();
+    Movie[] expected = new Movie[]{tenth, ninth, eight, seventh, sixth, fifth, fourth, third, second, first};
 
   assertArrayEquals(expected, actual);
   }
 
   @Test
   public void shouldAddOneMovie() {
-  manager = new AfishaManager(1);
     manager.add(first);
-  Movie[] actual = manager.showLast();
-  Movie[] expected = new Movie[]{first};
+    Movie[] returned = new Movie[]{first};
+    doReturn(returned).when(repository).findAll();
+
+    Movie[] actual = manager.showLast();
+    Movie[] expected = new Movie[]{first};
 
   assertArrayEquals(expected, actual);
   }
 
   @Test
   public void shouldNotExist(){
-  manager = new AfishaManager();
-  Movie[] actual = manager.showLast();
-  Movie[] expected = new Movie[]{};
+    Movie[] returned = new Movie[]{};
+    doReturn(returned).when(repository).findAll();
+
+    Movie[] actual = manager.showLast();
+    Movie[] expected = new Movie[]{};
 
   assertArrayEquals(expected, actual);
   }
