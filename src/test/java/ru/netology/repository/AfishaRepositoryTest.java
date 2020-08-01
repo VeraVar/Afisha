@@ -70,16 +70,6 @@ class AfishaRepositoryTest {
     }
 
     @Test
-    public void shouldNotRemoveByIdIfNotExists() {
-        int idToRemove = 11;
-        repository.removeById(idToRemove);
-        Movie[] actual = repository.findAll();
-        Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eight, ninth, tenth};
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
     public void shouldRemoveAll() {
         repository.removeAll();
         Movie[] actual = repository.findAll();

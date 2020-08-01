@@ -5,11 +5,14 @@ import ru.netology.domain.Movie;
 
 public class AfishaManager {
     private AfishaRepository repository;
-    int returnMovies;
+    int returnMovies = 10;
+
+    public AfishaManager(AfishaRepository repository, int returnMovies) {
+        this.repository = repository;
+        this.returnMovies = returnMovies;
+    }
 
     public AfishaManager() {
-        this.repository = repository;
-        this.returnMovies = 10;
     }
 
     public AfishaManager(int returnMovies) {
