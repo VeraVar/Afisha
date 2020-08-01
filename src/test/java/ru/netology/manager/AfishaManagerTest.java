@@ -71,4 +71,16 @@ public class AfishaManagerTest {
 
   assertArrayEquals(expected, actual);
   }
+
+  @Test
+  public void shouldGetAfishaWithCustomNullLength() {
+    AfishaManager manager = new AfishaManager(repository, 0);
+    Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth};
+    doReturn(returned).when(repository).findAll();
+
+    Movie[] actual = manager.showLast();
+    Movie[] expected = new Movie[]{sixth, fifth, fourth, third, second, first};
+
+  assertArrayEquals(expected, actual);
+  }
 }
