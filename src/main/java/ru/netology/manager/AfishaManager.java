@@ -4,7 +4,7 @@ import ru.netology.domain.Movie;
 
 public class AfishaManager {
     private Movie[] items = new Movie[0];
-    int returnMovies;
+    int returnMovies = 10;
 
 
     public AfishaManager(int returnMovies) {
