@@ -55,4 +55,13 @@ public class AfishaManagerTest {
 
   assertArrayEquals(expected, actual);
   }
+
+  @Test
+  public void shouldNegative() {
+    manager = new AfishaManager(-1);
+    Movie[] actual = manager.showLast();
+    Movie[] expected = new Movie[]{};
+
+    assertArrayEquals(expected, actual);
+  }
 }
